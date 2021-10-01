@@ -1,6 +1,6 @@
 Package: MIMIC3db
 Title: Package for building, loading and referencing a SQLite version of the MIMIC-III v1.4 database on a local network
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person(given = "H. David",
            family = "Shea",

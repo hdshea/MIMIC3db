@@ -32,15 +32,19 @@ devtools::install_github("hdshea/MIMIC3db")
 Assumptions:
 
 1.  you are in the base directory of an RStudio project that has a
-    `tests` directory and a `sql` directory defined in it,
+    `tests` directory defined in it,
 2.  you have loaded you have loaded the SQL scripts from [this GitHub
-    directory](https://github.com/hdshea/MIMIC3db/tree/main/inst/extdata)
+    directory](https://github.com/hdshea/MIMIC3db/tree/main/inst/sql)
     into the `tests` directory, and
 3.  you have loaded the MIMIC-III v1.4 data files into the `tests`
     directory
 
+NOTE: you can put the database and the SQL scripts in any directory that
+you like; this example just follows the convention of R package building
+for convenience.
+
 These assumptions having been met, the following code run in the
-terminal from the base directory will
+terminal from the base directory will:
 
 1.  create the database and base tables for MIMIC-III v1.4
 2.  load the data into the tables, and
@@ -84,8 +88,8 @@ RSQLite::dbListTables(con)
 ## Basic Usage
 
 Assuming that you have loaded the appropriate version of the MIMIC-III
-database into a database at `sata/MIMIC-III.db`, then the following code
-will set up a connection `con` to that database.
+database into a database at `tests/MIMIC-III.db`, then the following
+code will set up a connection `con` to that database.
 
 ``` r
 library(MIMIC3db)
@@ -102,7 +106,7 @@ if(RSQLite::dbCanConnect(RSQLite::SQLite(), db_file)) {
 This is a basic example showing the use of the two base functions.
 
 ``` r
-patients <- db_select_data(con, "SELECT * FROM PATIENTS WHERE SUBJECT_ID = 10006")
+patients <- db_select_data(con, "SELECT * FROM PATIENTS")
 patients
 #> # A tibble: 0 × 8
 #> # … with 8 variables: ROW_ID <int>, SUBJECT_ID <int>, GENDER <chr>, DOB <dbl>,
@@ -119,8 +123,29 @@ admissions
 #> #   HOSPITAL_EXPIRE_FLAG <int>, HAS_CHARTEVENTS_DATA <int>
 ```
 
+This is a basic example showing the use of a few of the tables specific
+data access functions.
+
+``` r
+patients <- db_get_patients(con)
+patients
+#> # A tibble: 0 × 7
+#> # … with 7 variables: SUBJECT_ID <int>, GENDER <chr>, DOB <dttm>, DOD <dttm>,
+#> #   DOD_HOSP <dttm>, DOD_SSN <dttm>, EXPIRE_FLAG <int>
+
+admissions <- db_get_admissions(con, where = "WHERE SUBJECT_ID = 10006")
+admissions
+#> # A tibble: 0 × 18
+#> # … with 18 variables: SUBJECT_ID <int>, HADM_ID <int>, ADMITTIME <dttm>,
+#> #   DISCHTIME <dttm>, DEATHTIME <dttm>, ADMISSION_TYPE <chr>,
+#> #   ADMISSION_LOCATION <chr>, DISCHARGE_LOCATION <chr>, INSURANCE <chr>,
+#> #   LANGUAGE <chr>, RELIGION <chr>, MARITAL_STATUS <chr>, ETHNICITY <chr>,
+#> #   EDREGTIME <dttm>, EDOUTTIME <dttm>, DIAGNOSIS <chr>,
+#> #   HOSPITAL_EXPIRE_FLAG <int>, HAS_CHARTEVENTS_DATA <int>
+```
+
 (NOTE: The example database I use for testing has only empty tables.
-That is why there are no results returned in the examples calss above.)
+That is why there are no results returned in the examples calls above.)
 
 This is how you disconnect from the database when finished.
 

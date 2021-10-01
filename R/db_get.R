@@ -1,15 +1,20 @@
 #' @importFrom magrittr %>%
 NULL
 
+# hack for handling peculiarity of using dplyr and unquoted variable names inside a package
 ROW_ID <- NULL
 
 #' Basic SELECT statement wrapper returning results in a tibble
 #'
 #' Wrapper around DBI and formatting functions to execute a \code{SELECT} statement
 #' and return the results in a tibble.
+#'
 #' @param con A DBIConnection object, as returned by [DBI::dbConnect()].
 #' @param select_statement a character string representing a SQL \code{SELECT} statement.
+#'
 #' @returns a tibble with the results.
+#' @export
+#'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
 #' p <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
@@ -21,7 +26,6 @@ ROW_ID <- NULL
 #' admissions <- db_select_data(con, "SELECT * FROM ADMISSIONS WHERE SUBJECT_ID = 10006")
 #'
 #' RSQLite::dbDisconnect(con)
-#' @export
 db_select_data <- function(con, select_statement) {
   res <- DBI::dbSendQuery(con, select_statement)
   rval <- tibble::tibble(DBI::dbFetch(res))
@@ -35,10 +39,14 @@ db_select_data <- function(con, select_statement) {
 #' where clause.  Note that some internal processing is performed to reflect general usage patterns
 #' including removing the \code{ROW_ID} column and converting \code{DATE} and \code{TIME} fields to
 #' POSIXct date-time format.
+#'
 #' @param con  A DBIConnection object, as returned by dbConnect().
 #' @param table a character string representing a valit MIMIC-III table name.
 #' @param where a character string representing a SQL \code{WHERE} clause.
+#'
 #' @returns a tibble with the results.
+#' @export
+#'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
 #' p <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
@@ -50,7 +58,6 @@ db_select_data <- function(con, select_statement) {
 #' admissions <- db_get_from_table(con, "ADMISSIONS", where = "WHERE SUBJECT_ID = 10006")
 #'
 #' RSQLite::dbDisconnect(con)
-#' @export
 db_get_from_table <- function(con, table, where = NULL) {
   db_select_data(con, stringr::str_c("SELECT * FROM", table, where, sep = " ")) %>%
     dplyr::select(-ROW_ID) %>% # default to removing the ROW_ID internal primary key
