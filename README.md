@@ -6,19 +6,17 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-This work references data on from the Medical Information Mart for
+This work references data from the Medical Information Mart for
 Intensive Care MIMIC-III database v1.4. MIMIC-III is a large,
 freely-available database comprising de-identified health-related data
 from patients who were admitted to the critical care units of the Beth
 Israel Deaconess Medical Center from 2001-2019. Detailed information can
 be obtained on the [MIMIC-III website](https://mimic.mit.edu/docs/iii/).
 
-MIMIC3db provides a tightly bound set of routines to build a SQLite
+MIMIC3db provides a tightly bound set of routines to reference a SQLite
 version of the [MIMIC-III
 v1.4](https://physionet.org/content/mimiciii/1.4/) database on a local
-network. The package has routines that then assist the user with loading
-the MIMIC-III data into the local database. The package also presents
-base routines for accessing data from the database.
+network.
 
 ## Installation
 
@@ -34,11 +32,11 @@ devtools::install_github("hdshea/MIMIC3db")
 Assumptions:
 
 1.  you are in the base directory of an RStudio project that has a
-    `data` directory defined in it,
+    `tests` directory and a `sql` directory defined in it,
 2.  you have loaded you have loaded the SQL scripts from [this GitHub
-    directory](https://github.com/hdshea/MIMIC3db/tree/main/data) into
-    the `data` directory, and
-3.  you have loaded the MIMIC-III v1.4 data files into the `data`
+    directory](https://github.com/hdshea/MIMIC3db/tree/main/inst/extdata)
+    into the `tests` directory, and
+3.  you have loaded the MIMIC-III v1.4 data files into the `tests`
     directory
 
 These assumptions having been met, the following code run in the
@@ -52,7 +50,7 @@ NOTE: the zip file for the base data tables is 6.2 GB and the built
 database on my MacBook Pro M1 local hard drive is 85.6 GB.
 
 ``` bash
-cd data
+cd tests
 sqlite3 MIMIC-III.db < mimic3_create_script.sql
 sqlite3 MIMIC-III.db < mimic3_load_small_tables.sql
 sqlite3 MIMIC-III.db < mimic3_load_CHARTEVENTS.sql
@@ -93,7 +91,7 @@ will set up a connection `con` to that database.
 library(MIMIC3db)
 
 base_dir <- here::here("")
-db_file <- fs::path(base_dir, "data/MIMIC-III.db")
+db_file <- fs::path(base_dir, "tests/MIMIC-III.db")
 if(RSQLite::dbCanConnect(RSQLite::SQLite(), db_file)) {
     con <- RSQLite::dbConnect(RSQLite::SQLite(), db_file)
 } else {
