@@ -33,7 +33,7 @@ Assumptions:
 
 1.  you are in the base directory of an RStudio project that has a
     `tests` directory defined in it,
-2.  you have loaded you have loaded the SQL scripts from [this GitHub
+2.  you have loaded the SQL scripts from [this GitHub
     directory](https://github.com/hdshea/MIMIC3db/tree/main/inst/sql)
     into the `tests` directory, and
 3.  you have loaded the MIMIC-III v1.4 data files into the `tests`

@@ -1,11 +1,17 @@
 test_that("db_get_from_table works", {
-    con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
-    p <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
-    RSQLite::dbWriteTable(con, "PATIENTS", p)
+  base_dir <- here::here("")
+  load(fs::path(base_dir, "tests/t_data.RData"))
 
-    patients <- db_get_from_table(con, "PATIENTS")
+  db_file <- fs::path(base_dir, "tests/MIMIC-III.db")
+  if (RSQLite::dbCanConnect(RSQLite::SQLite(), db_file)) {
+    con <- RSQLite::dbConnect(RSQLite::SQLite(), db_file)
+  } else {
+    stop(stringr::str_c("Database file: ", db_file, " not found.", sep = ""))
+  }
 
-    RSQLite::dbDisconnect(con)
+  patients <- db_get_from_table(con, "PATIENTS")
 
-    expect_equal(p, patients)
+  RSQLite::dbDisconnect(con)
+
+  expect_equal(t_patients_raw, patients)
 })

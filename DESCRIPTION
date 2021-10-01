@@ -22,6 +22,8 @@ Config/testthat/edition: 3
 Imports: 
     DBI,
     dplyr,
+    fs,
+    here,
     lubridate,
     magrittr,
     RSQLite,
