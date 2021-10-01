@@ -29,17 +29,71 @@ You can install MIMIC3db from GitHub with:
 devtools::install_github("hdshea/MIMIC3db")
 ```
 
+## Building the database
+
+Assumptions:
+
+1.  you are in the base directory of an RStudio project that has a
+    `data` directory defined in it,
+2.  you have loaded you have loaded the SQL scripts from [this GitHub
+    directory](https://github.com/hdshea/MIMIC3db/tree/main/data) into
+    the `data` directory, and
+3.  you have loaded the MIMIC-III v1.4 data files into the `data`
+    directory
+
+These assumptions having been met, the following code run in the
+terminal from the base directory will
+
+1.  create the database and base tables for MIMIC-III v1.4
+2.  load the data into the tables, and
+3.  clean up some data columns and create the indexes for the tables.
+
+NOTE: the zip file for the base data tables is 6.2 GB and the built
+database on my MacBook Pro M1 local hard drive is 85.6 GB.
+
+``` bash
+cd data
+sqlite3 MIMIC-III.db < mimic3_create_script.sql
+sqlite3 MIMIC-III.db < mimic3_load_small_tables.sql
+sqlite3 MIMIC-III.db < mimic3_load_CHARTEVENTS.sql
+sqlite3 MIMIC-III.db < mimic3_load_DATETIMEEVENTS.sql
+sqlite3 MIMIC-III.db < mimic3_load_INPUTEVENTS_CV.sql
+sqlite3 MIMIC-III.db < mimic3_load_INPUTEVENTS_MV.sql
+sqlite3 MIMIC-III.db < mimic3_load_LABEVENTS.sql
+sqlite3 MIMIC-III.db < mimic3_load_NOTEEVENTS.sql
+sqlite3 MIMIC-III.db < mimic3_load_OUTPUTEVENTS.sql
+sqlite3 MIMIC-III.db < mimic3_load_PRESCRIPTIONS.sql
+sqlite3 MIMIC-III.db < fix_data_fields.sql
+sqlite3 MIMIC-III.db < mimic3_add_indexes.sql
+cd ..
+```
+
+This code then shows the tables in the new database.
+
+``` r
+RSQLite::dbListTables(con)
+#>  [1] "ADMISSIONS"         "CALLOUT"            "CAREGIVERS"        
+#>  [4] "CHARTEVENTS"        "CPTEVENTS"          "DATETIMEEVENTS"    
+#>  [7] "DIAGNOSES_ICD"      "DRGCODES"           "D_CPT"             
+#> [10] "D_ICD_DIAGNOSES"    "D_ICD_PROCEDURES"   "D_ITEMS"           
+#> [13] "D_LABITEMS"         "ICUSTAYS"           "INPUTEVENTS_CV"    
+#> [16] "INPUTEVENTS_MV"     "LABEVENTS"          "MICROBIOLOGYEVENTS"
+#> [19] "NOTEEVENTS"         "OUTPUTEVENTS"       "PATIENTS"          
+#> [22] "PRESCRIPTIONS"      "PROCEDUREEVENTS_MV" "PROCEDURES_ICD"    
+#> [25] "SERVICES"           "TRANSFERS"
+```
+
 ## Basic Usage
 
 Assuming that you have loaded the appropriate version of the MIMIC-III
-database into a database at `db/MIMIC-III.db`, then the following code
+database into a database at `sata/MIMIC-III.db`, then the following code
 will set up a connection `con` to that database.
 
 ``` r
 library(MIMIC3db)
 
 base_dir <- here::here("")
-db_file <- fs::path(base_dir, "db/MIMIC-III.db")
+db_file <- fs::path(base_dir, "data/MIMIC-III.db")
 if(RSQLite::dbCanConnect(RSQLite::SQLite(), db_file)) {
     con <- RSQLite::dbConnect(RSQLite::SQLite(), db_file)
 } else {
@@ -47,45 +101,31 @@ if(RSQLite::dbCanConnect(RSQLite::SQLite(), db_file)) {
 }
 ```
 
-## Building the database
-
-Assuming you are in the base directory of an RStudio project that has a
-`db` directory defined in it and that you have loaded the SQL scripts
-from this GitHub directory, the following code run in the terminal from
-the base directory will create the base tables for the MIMIC-III v1.4
-database and tables.
-
-``` bash
-cd db
-sqlite3 MIMIC-III.db < mimic3_create_scipt.sql
-cd ..
-```
-
-This is a basic example showing the use of some base function with an in
-memory example database:
+This is a basic example showing the use of the two base functions.
 
 ``` r
-library(MIMIC3db)
-con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
-p <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
-a <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
-RSQLite::dbWriteTable(con, "PATIENTS", p)
-RSQLite::dbWriteTable(con, "ADMISSIONS", a)
-
-patients <- db_get_from_table(con, "PATIENTS")
+patients <- db_select_data(con, "SELECT * FROM PATIENTS WHERE SUBJECT_ID = 10006")
 patients
-#> # A tibble: 2 × 1
-#>   SUBJECT_ID
-#>        <dbl>
-#> 1      10006
-#> 2      10011
+#> # A tibble: 0 × 8
+#> # … with 8 variables: ROW_ID <int>, SUBJECT_ID <int>, GENDER <chr>, DOB <dbl>,
+#> #   DOD <dbl>, DOD_HOSP <dbl>, DOD_SSN <dbl>, EXPIRE_FLAG <int>
 
 admissions <- db_get_from_table(con, "ADMISSIONS", where = "WHERE SUBJECT_ID = 10006")
 admissions
-#> # A tibble: 1 × 1
-#>   SUBJECT_ID
-#>        <dbl>
-#> 1      10006
+#> # A tibble: 0 × 18
+#> # … with 18 variables: SUBJECT_ID <int>, HADM_ID <int>, ADMITTIME <dttm>,
+#> #   DISCHTIME <dttm>, DEATHTIME <dttm>, ADMISSION_TYPE <chr>,
+#> #   ADMISSION_LOCATION <chr>, DISCHARGE_LOCATION <chr>, INSURANCE <chr>,
+#> #   LANGUAGE <chr>, RELIGION <chr>, MARITAL_STATUS <chr>, ETHNICITY <chr>,
+#> #   EDREGTIME <dttm>, EDOUTTIME <dttm>, DIAGNOSIS <chr>,
+#> #   HOSPITAL_EXPIRE_FLAG <int>, HAS_CHARTEVENTS_DATA <int>
+```
 
+(NOTE: The example database I use for testing has only empty tables.
+That is why there are no results returned in the examples calss above.)
+
+This is how you disconnect from the database when finished.
+
+``` r
 RSQLite::dbDisconnect(con)
 ```

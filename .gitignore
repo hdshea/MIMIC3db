@@ -3,4 +3,4 @@
 .Rdata
 .httr-oauth
 .DS_Store
-db/MIMIC-III.db
+data/MIMIC-III.db
