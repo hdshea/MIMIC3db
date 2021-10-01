@@ -23,10 +23,10 @@ ROW_ID <- NULL
 #' RSQLite::dbDisconnect(con)
 #' @export
 db_select_data <- function(con, select_statement) {
-    res <- DBI::dbSendQuery(con, select_statement)
-    rval <- tibble::tibble(DBI::dbFetch(res))
-    DBI::dbClearResult(res)
-    rval
+  res <- DBI::dbSendQuery(con, select_statement)
+  rval <- tibble::tibble(DBI::dbFetch(res))
+  DBI::dbClearResult(res)
+  rval
 }
 
 #' Simple generic SELECT * wrapper for extracting data from base tables
@@ -52,20 +52,30 @@ db_select_data <- function(con, select_statement) {
 #' RSQLite::dbDisconnect(con)
 #' @export
 db_get_from_table <- function(con, table, where = NULL) {
-    db_select_data(con, stringr::str_c("SELECT * FROM", table, where, sep = " ")) %>%
-        dplyr::select(-ROW_ID)  %>%  # default to removing the ROW_ID internal primary key
-        dplyr::mutate(
-            # all columns ending in DATE convert to R DateTime - adjust format first if needed
-            dplyr::across(tidyselect::ends_with("DATE"),
-                          function(x) { ifelse(stringr::str_length(x) == 10,
-                                               stringr::str_c(x," 00:00:00"),
-                                               x) }),
-            dplyr::across(tidyselect::ends_with("DATE"), lubridate::ymd_hms),
-            # all columns ending in TIME convert to R DateTime - adjust format first if needed
-            dplyr::across(tidyselect::ends_with("TIME"),
-                          function(x) { ifelse(stringr::str_length(x) == 10,
-                                               stringr::str_c(x," 00:00:00"),
-                                               x) }),
-            dplyr::across(tidyselect::ends_with("TIME"), lubridate::ymd_hms)
-        )
+  db_select_data(con, stringr::str_c("SELECT * FROM", table, where, sep = " ")) %>%
+    dplyr::select(-ROW_ID) %>% # default to removing the ROW_ID internal primary key
+    dplyr::mutate(
+      # all columns ending in DATE convert to R DateTime - adjust format first if needed
+      dplyr::across(
+        tidyselect::ends_with("DATE"),
+        function(x) {
+          ifelse(stringr::str_length(x) == 10,
+            stringr::str_c(x, " 00:00:00"),
+            x
+          )
+        }
+      ),
+      dplyr::across(tidyselect::ends_with("DATE"), lubridate::ymd_hms),
+      # all columns ending in TIME convert to R DateTime - adjust format first if needed
+      dplyr::across(
+        tidyselect::ends_with("TIME"),
+        function(x) {
+          ifelse(stringr::str_length(x) == 10,
+            stringr::str_c(x, " 00:00:00"),
+            x
+          )
+        }
+      ),
+      dplyr::across(tidyselect::ends_with("TIME"), lubridate::ymd_hms)
+    )
 }

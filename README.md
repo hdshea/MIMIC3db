@@ -27,18 +27,27 @@ This is a basic example showing the use of some base function with an in
 memory example database:
 
 ``` r
-# library(MIMIC3db)
+library(MIMIC3db)
 con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
 p <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
 a <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
 RSQLite::dbWriteTable(con, "PATIENTS", p)
 RSQLite::dbWriteTable(con, "ADMISSIONS", a)
 
-# patients <- db_get_from_table(con, "PATIENTS")
-# patients
-# 
-# admissions <- db_get_from_table(con, "ADMISSIONS", where = "WHERE SUBJECT_ID = 10006")
-# admissions
+patients <- db_get_from_table(con, "PATIENTS")
+patients
+#> # A tibble: 2 × 1
+#>   SUBJECT_ID
+#>        <dbl>
+#> 1      10006
+#> 2      10011
+
+admissions <- db_get_from_table(con, "ADMISSIONS", where = "WHERE SUBJECT_ID = 10006")
+admissions
+#> # A tibble: 1 × 1
+#>   SUBJECT_ID
+#>        <dbl>
+#> 1      10006
 
 RSQLite::dbDisconnect(con)
 ```
