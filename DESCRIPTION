@@ -1,15 +1,30 @@
 Package: MIMIC3db
-Title: What the Package Does (One Line, Title Case)
+Title: Package for building, loading and referencing a SQLite version of the MIMIC-III v1.4 database on a local network
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Dave",
+    person(given = "H. David",
            family = "Shea",
            role = c("aut", "cre"),
            email = "hdshea@comcast.net",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: This package provides a tightly bound set of routines to build a SQLite version of the 
+    MIMIC-III v1.4 database on a local network.  The package has routines that then assist the user 
+    with loading the MIMIC-III data into the local database.  The package also presents base routines 
+    for accessing data from the database.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Imports: 
+    DBI,
+    dplyr,
+    lubridate,
+    magrittr,
+    RSQLite,
+    stringr,
+    tibble,
+    tidyselect
