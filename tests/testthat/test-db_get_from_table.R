@@ -1,5 +1,9 @@
 test_that("db_get_from_table works", {
   base_dir <- here::here("")
+  cat(base_dir)
+  cat("\n")
+  cat(getwd())
+  cat("\n")
   load(fs::path(base_dir, "tests/t_data.RData"))
 
   db_file <- fs::path(base_dir, "tests/MIMIC-III.db")

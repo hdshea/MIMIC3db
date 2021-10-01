@@ -1,6 +1,6 @@
 Package: MIMIC3db
 Title: Package for building, loading and referencing a SQLite version of the MIMIC-III v1.4 database on a local network
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: 
     person(given = "H. David",
            family = "Shea",
@@ -11,6 +11,7 @@ Description: This package provides a tightly bound set of routines to build a SQ
     MIMIC-III v1.4 database on a local network.  The package has routines that then assist the user 
     with loading the MIMIC-III data into the local database.  The package also presents base routines 
     for accessing data from the database.
+Depends: R (>= 3.5.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
