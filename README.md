@@ -31,30 +31,31 @@ devtools::install_github("hdshea/MIMIC3db")
 
 Assumptions:
 
-1.  you are in the base directory of an RStudio project that has a
-    `tests` directory defined in it,
+1.  you are in the base directory of an RStudio project that has a `db`
+    directory defined in it,
 2.  you have loaded the SQL scripts from [this GitHub
     directory](https://github.com/hdshea/MIMIC3db/tree/main/inst/sql)
-    into the `tests` directory, and
-3.  you have loaded the MIMIC-III v1.4 data files into the `tests`
-    directory
+    into the `db` directory, and
+3.  you have loaded the MIMIC-III v1.4 raw data files into the `db`
+    directory retaining their default names
 
 NOTE: you can put the database and the SQL scripts in any directory that
-you like; this example just follows the convention of R package building
-for convenience.
+you like; this example just uses a directory named `db` in the base
+project directory as an example.
 
 These assumptions having been met, the following code run in the
 terminal from the base directory will:
 
 1.  create the database and base tables for MIMIC-III v1.4
 2.  load the data into the tables, and
-3.  clean up some data columns and create the indexes for the tables.
+3.  clean up some data columns and create base indexes for the tables.
 
-NOTE: the zip file for the base data tables is 6.2 GB and the built
-database on my MacBook Pro M1 local hard drive is 85.6 GB.
+NOTE: the zip file containing the MIMIC-III v1.4 raw data files is 6.2
+GB and the built database on my MacBook Pro M1 local hard drive is 85.6
+GB.
 
 ``` bash
-cd tests
+cd db
 sqlite3 MIMIC-III.db < mimic3_create_script.sql
 sqlite3 MIMIC-III.db < mimic3_load_small_tables.sql
 sqlite3 MIMIC-III.db < mimic3_load_CHARTEVENTS.sql
@@ -74,7 +75,7 @@ This code then shows the tables in the new database.
 
 ``` r
 base_dir <- here::here("")
-db_file <- fs::path(base_dir, "tests/MIMIC-III.db")
+db_file <- fs::path(base_dir, "db/MIMIC-III.db")
 if(RSQLite::dbCanConnect(RSQLite::SQLite(), db_file)) {
     con <- RSQLite::dbConnect(RSQLite::SQLite(), db_file)
 } else {
@@ -102,14 +103,14 @@ RSQLite::dbDisconnect(con)
 ## Basic Usage
 
 Assuming that you have loaded the appropriate version of the MIMIC-III
-database into a database at `tests/MIMIC-III.db`, then the following
-code will set up a connection `con` to that database.
+database into a database at `db/MIMIC-III.db`, then the following code
+will set up a connection `con` to that database.
 
 ``` r
 library(MIMIC3db)
 
 base_dir <- here::here("")
-db_file <- fs::path(base_dir, "tests/MIMIC-III.db")
+db_file <- fs::path(base_dir, "db/MIMIC-III.db")
 if(RSQLite::dbCanConnect(RSQLite::SQLite(), db_file)) {
     con <- RSQLite::dbConnect(RSQLite::SQLite(), db_file)
 } else {
