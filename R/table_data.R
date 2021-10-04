@@ -9,6 +9,11 @@ DOB <- DOD <- DOD_HOSP <- DOD_SSN <- VALUE <- NULL
 #' @return a tibble with the results.
 #' @export
 #'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the ADMISSIONS table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/admissions/}{The admissions table}.
+#'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
 #' ex <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
@@ -28,6 +33,11 @@ db_get_admissions <- function(con, ...) {
 #'
 #' @return a tibble with the results.
 #' @export
+#'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the CALLOUT table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/callout/}{The callout table}.
 #'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
@@ -49,6 +59,11 @@ db_get_callout <- function(con, ...) {
 #' @return a tibble with the results.
 #' @export
 #'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the CAREGIVERS table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/caregivers/}{The caregivers table}.
+#'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
 #' ex <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
@@ -68,6 +83,11 @@ db_get_caregivers <- function(con, ...) {
 #'
 #' @return a tibble with the results.
 #' @export
+#'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the CHARTEVENTS table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/chartevents/}{The chartevents table}.
 #'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
@@ -89,6 +109,11 @@ db_get_chartevents <- function(con, ...) {
 #'
 #' @return a tibble with the results.
 #' @export
+#'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the CPTEVENTS table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/cptevents/}{The cptevents table}.
 #'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
@@ -112,6 +137,11 @@ db_get_cptevents <- function(con, ...) {
 #'
 #' @return a tibble with the results.
 #' @export
+#'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the DATETIMEEVENTS table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/datetimeevents/}{The datetimeevents table}.
 #'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
@@ -137,6 +167,11 @@ db_get_datetimeevents <- function(con, ...) {
 #' @return a tibble with the results.
 #' @export
 #'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the DIAGNOSES_ICD table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/diagnoses_icd/}{The diagnoses_icd table}.
+#'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
 #' ex <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
@@ -156,6 +191,11 @@ db_get_diagnoses_icd <- function(con, ...) {
 #'
 #' @return a tibble with the results.
 #' @export
+#'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the DRGCODES table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/drgcodes/}{The drgcodes table}.
 #'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
@@ -177,6 +217,11 @@ db_get_drgcodes <- function(con, ...) {
 #' @return a tibble with the results.
 #' @export
 #'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the D_CPT table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/d_cpt/}{The d_cpt table}.
+#'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
 #' ex <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
@@ -196,6 +241,11 @@ db_get_d_cpt <- function(con, ...) {
 #'
 #' @return a tibble with the results.
 #' @export
+#'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the D_ICD_DIAGNOSES table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/d_icd_diagnoses/}{The d_icd_diagnoses table}.
 #'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
@@ -217,6 +267,11 @@ db_get_d_icd_diagnoses <- function(con, ...) {
 #' @return a tibble with the results.
 #' @export
 #'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the D_ICD_PROCEDURES table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/d_icd_procedures/}{The d_icd_procedures table}.
+#'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
 #' ex <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
@@ -236,6 +291,11 @@ db_get_d_icd_procedures <- function(con, ...) {
 #'
 #' @return a tibble with the results.
 #' @export
+#'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the D_ITEMS table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/d_items/}{The d_items table}.
 #'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
@@ -257,6 +317,11 @@ db_get_d_items <- function(con, ...) {
 #' @return a tibble with the results.
 #' @export
 #'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the D_LABITEMS table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/d_labitems/}{The d_labitems table}.
+#'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
 #' ex <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
@@ -276,6 +341,11 @@ db_get_d_labitems <- function(con, ...) {
 #'
 #' @return a tibble with the results.
 #' @export
+#'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the ICUSTAYS table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/icustays/}{The icustays table}.
 #'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
@@ -297,6 +367,11 @@ db_get_icustays <- function(con, ...) {
 #' @return a tibble with the results.
 #' @export
 #'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the INPUTEVENTS_CV table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/inputevents_cv/}{The inputevents_cv table}.
+#'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
 #' ex <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
@@ -316,6 +391,11 @@ db_get_inputevents_cv <- function(con, ...) {
 #'
 #' @return a tibble with the results.
 #' @export
+#'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the INPUTEVENTS_MV table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/inputevents_mv/}{The inputevents_mv table}.
 #'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
@@ -337,6 +417,11 @@ db_get_inputevents_mv <- function(con, ...) {
 #' @return a tibble with the results.
 #' @export
 #'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the LABEVENTS table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/labevents/}{The labevents table}.
+#'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
 #' ex <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
@@ -356,6 +441,11 @@ db_get_labevents <- function(con, ...) {
 #'
 #' @return a tibble with the results.
 #' @export
+#'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the MICROBIOLOGYEVENTS table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/microbiologyevents/}{The microbiologyevents table}.
 #'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
@@ -377,6 +467,11 @@ db_get_microbiologyevents <- function(con, ...) {
 #' @return a tibble with the results.
 #' @export
 #'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the NOTEEVENTS table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/noteevents/}{The noteevents table}.
+#'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
 #' ex <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
@@ -396,6 +491,11 @@ db_get_noteevents <- function(con, ...) {
 #'
 #' @return a tibble with the results.
 #' @export
+#'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the OUTPUTEVENTS table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/outputevents/}{The outputevents table}.
 #'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
@@ -419,6 +519,11 @@ db_get_outputevents <- function(con, ...) {
 #'
 #' @return a tibble with the results.
 #' @export
+#'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the PATIENTS table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/patients/}{The patients table}.
 #'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
@@ -454,6 +559,11 @@ db_get_patients <- function(con, ...) {
 #' @return a tibble with the results.
 #' @export
 #'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the PRESCRIPTIONS table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/prescriptions/}{The prescriptions table}.
+#'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
 #' ex <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
@@ -473,6 +583,11 @@ db_get_prescriptions <- function(con, ...) {
 #'
 #' @return a tibble with the results.
 #' @export
+#'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the PROCEDUREEVENTS_MV table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/procedureevents_mv/}{The procedureevents_mv table}.
 #'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
@@ -494,6 +609,11 @@ db_get_procedureevents_mv <- function(con, ...) {
 #' @return a tibble with the results.
 #' @export
 #'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the PROCEDURES_ICD table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/procedures_icd/}{The procedures_icd table}.
+#'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
 #' ex <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
@@ -514,6 +634,11 @@ db_get_procedures_icd <- function(con, ...) {
 #' @return a tibble with the results.
 #' @export
 #'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the SERVICES table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/services/}{The services table}.
+#'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
 #' ex <- tibble::tibble(SUBJECT_ID = c(10006, 10011))
@@ -533,6 +658,11 @@ db_get_services <- function(con, ...) {
 #'
 #' @return a tibble with the results.
 #' @export
+#'
+#' @seealso For an overview of the MIMIC-III database, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+#' For details on the TRANSFERS table, see:
+#' \href{https://mimic.mit.edu/docs/iii/tables/transfers/}{The transfer table}.
 #'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")

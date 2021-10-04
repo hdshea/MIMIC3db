@@ -26,3 +26,9 @@ td <- db_get_inputevents_cv(con, where = "WHERE SUBJECT_ID = 10006")
 
 RSQLite::dbDisconnect(con)
 }
+\seealso{
+For an overview of the MIMIC-III database, see:
+\href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+For details on the INPUTEVENTS_CV table, see:
+\href{https://mimic.mit.edu/docs/iii/tables/inputevents_cv/}{The inputevents_cv table}.
+}

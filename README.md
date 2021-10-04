@@ -73,6 +73,16 @@ cd ..
 This code then shows the tables in the new database.
 
 ``` r
+base_dir <- here::here("")
+db_file <- fs::path(base_dir, "tests/MIMIC-III.db")
+if(RSQLite::dbCanConnect(RSQLite::SQLite(), db_file)) {
+    con <- RSQLite::dbConnect(RSQLite::SQLite(), db_file)
+} else {
+    stop(stringr::str_c("Database file: ", db_file, " not found.", sep=""))
+}
+```
+
+``` r
 RSQLite::dbListTables(con)
 #>  [1] "ADMISSIONS"         "CALLOUT"            "CAREGIVERS"        
 #>  [4] "CHARTEVENTS"        "CPTEVENTS"          "DATETIMEEVENTS"    
@@ -83,6 +93,10 @@ RSQLite::dbListTables(con)
 #> [19] "NOTEEVENTS"         "OUTPUTEVENTS"       "PATIENTS"          
 #> [22] "PRESCRIPTIONS"      "PROCEDUREEVENTS_MV" "PROCEDURES_ICD"    
 #> [25] "SERVICES"           "TRANSFERS"
+```
+
+``` r
+RSQLite::dbDisconnect(con)
 ```
 
 ## Basic Usage

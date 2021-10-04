@@ -55,7 +55,7 @@ will:
 NOTE:  the zip file for the base data tables is 6.2 GB and the built database on my MacBook Pro M1 local 
 hard drive is 85.6 GB.
 
-```{bash build_database, echo = TRUE, eval = FALSE}
+```{bash build_database, echo=TRUE, eval=FALSE}
 cd tests
 sqlite3 MIMIC-III.db < mimic3_create_script.sql
 sqlite3 MIMIC-III.db < mimic3_load_small_tables.sql
@@ -74,7 +74,16 @@ cd ..
 
 This code then shows the tables in the new database.
 
-```{r pre_connect, include=FALSE}
+```{r pre_connect_internal, include=FALSE, eval=TRUE}
+db_file <- system.file("extdata", "MIMIC-III.db", package = "MIMIC3db")
+if(RSQLite::dbCanConnect(RSQLite::SQLite(), db_file)) {
+    con <- RSQLite::dbConnect(RSQLite::SQLite(), db_file)
+} else {
+    stop(stringr::str_c("Database file: ", db_file, " not found.", sep=""))
+}
+```
+
+```{r pre_connect, include=TRUE, eval=FALSE}
 base_dir <- here::here("")
 db_file <- fs::path(base_dir, "tests/MIMIC-III.db")
 if(RSQLite::dbCanConnect(RSQLite::SQLite(), db_file)) {
@@ -84,11 +93,11 @@ if(RSQLite::dbCanConnect(RSQLite::SQLite(), db_file)) {
 }
 ```
 
-```{r list_tables, include=TRUE}
+```{r list_tables, include=TRUE, eval=TRUE}
 RSQLite::dbListTables(con)
 ```
 
-```{r pre_disconnect, include=FALSE}
+```{r pre_disconnect, include=TRUE, eval=TRUE}
 RSQLite::dbDisconnect(con)
 ```
 
@@ -97,7 +106,18 @@ RSQLite::dbDisconnect(con)
 Assuming that you have loaded the appropriate version of the MIMIC-III database into a database at 
 `tests/MIMIC-III.db`, then the following code will set up a connection `con` to that database.
 
-```{r connect, include=TRUE}
+```{r connect_internal, include=FALSE, eval=TRUE}
+library(MIMIC3db)
+
+db_file <- system.file("extdata", "MIMIC-III.db", package = "MIMIC3db")
+if(RSQLite::dbCanConnect(RSQLite::SQLite(), db_file)) {
+    con <- RSQLite::dbConnect(RSQLite::SQLite(), db_file)
+} else {
+    stop(stringr::str_c("Database file: ", db_file, " not found.", sep=""))
+}
+```
+
+```{r connect, include=TRUE, eval=FALSE}
 library(MIMIC3db)
 
 base_dir <- here::here("")
@@ -121,7 +141,7 @@ admissions
 
 This is a basic example showing the use of a few of the tables specific data access functions.
 
-```{r table_functions, include=TRUE}
+```{r table_functions, include=TRUE, eval=TRUE}
 patients <- db_get_patients(con)
 patients
 
@@ -133,7 +153,7 @@ admissions
 
 This is how you disconnect from the database when finished.
 
-```{r disconnect, include=TRUE}
+```{r disconnect, include=TRUE, eval=TRUE}
 RSQLite::dbDisconnect(con)
 ```
 

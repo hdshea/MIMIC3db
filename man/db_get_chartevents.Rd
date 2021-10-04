@@ -26,3 +26,9 @@ td <- db_get_chartevents(con, where = "WHERE SUBJECT_ID = 10006")
 
 RSQLite::dbDisconnect(con)
 }
+\seealso{
+For an overview of the MIMIC-III database, see:
+\href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+For details on the CHARTEVENTS table, see:
+\href{https://mimic.mit.edu/docs/iii/tables/chartevents/}{The chartevents table}.
+}

@@ -26,3 +26,9 @@ td <- db_get_outputevents(con, where = "WHERE SUBJECT_ID = 10006")
 
 RSQLite::dbDisconnect(con)
 }
+\seealso{
+For an overview of the MIMIC-III database, see:
+\href{https://mimic.mit.edu/docs/iii/tables/}{Overview of the MIMIC-III data}.
+For details on the OUTPUTEVENTS table, see:
+\href{https://mimic.mit.edu/docs/iii/tables/outputevents/}{The outputevents table}.
+}
