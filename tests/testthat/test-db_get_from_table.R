@@ -10,4 +10,3 @@ test_that("db_get_from_table works", {
 
   RSQLite::dbDisconnect(con)
 })
-

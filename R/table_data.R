@@ -23,7 +23,7 @@ DOB <- DOD <- DOD_HOSP <- DOD_SSN <- VALUE <- NULL
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_admissions <- function(con, ...) {
-    db_get_from_table(con, "admissions", ...)
+  db_get_from_table(con, "admissions", ...)
 }
 
 #' Simple table specific reference function for the CALLOUT table data
@@ -48,7 +48,7 @@ db_get_admissions <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_callout <- function(con, ...) {
-    db_get_from_table(con, "callout", ...)
+  db_get_from_table(con, "callout", ...)
 }
 
 #' Simple table specific reference function for the CAREGIVERS table data
@@ -73,7 +73,7 @@ db_get_callout <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_caregivers <- function(con, ...) {
-    db_get_from_table(con, "caregivers", ...)
+  db_get_from_table(con, "caregivers", ...)
 }
 
 #' Simple table specific reference function for the CHARTEVENTS table data
@@ -97,9 +97,8 @@ db_get_caregivers <- function(con, ...) {
 #' td <- db_get_chartevents(con, where = "WHERE SUBJECT_ID = 10006")
 #'
 #' RSQLite::dbDisconnect(con)
-
 db_get_chartevents <- function(con, ...) {
-    db_get_from_table(con, "chartevents", ...)
+  db_get_from_table(con, "chartevents", ...)
 }
 
 #' Simple table specific reference function for the CPTEVENTS table data
@@ -124,7 +123,7 @@ db_get_chartevents <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_cptevents <- function(con, ...) {
-    db_get_from_table(con, "cptevents", ...)
+  db_get_from_table(con, "cptevents", ...)
 }
 
 #' Simple table specific reference function for the DATETIMEEVENTS table data
@@ -152,11 +151,11 @@ db_get_cptevents <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_datetimeevents <- function(con, ...) {
-    db_get_from_table(con, "datetimeevents", ...)  %>%
-        dplyr::mutate(
-            VALUE = ifelse(stringr::str_length(VALUE) == 10, stringr::str_c(VALUE," 00:00:00"), VALUE),
-            VALUE = lubridate::ymd_hms(VALUE)
-        ) # VALUE column in DATETIMEEVENTS is a DATE
+  db_get_from_table(con, "datetimeevents", ...) %>%
+    dplyr::mutate(
+      VALUE = ifelse(stringr::str_length(VALUE) == 10, stringr::str_c(VALUE, " 00:00:00"), VALUE),
+      VALUE = lubridate::ymd_hms(VALUE)
+    ) # VALUE column in DATETIMEEVENTS is a DATE
 }
 
 #' Simple table specific reference function for the DIAGNOSES_ICD table data
@@ -181,7 +180,7 @@ db_get_datetimeevents <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_diagnoses_icd <- function(con, ...) {
-    db_get_from_table(con, "diagnoses_icd", ...)
+  db_get_from_table(con, "diagnoses_icd", ...)
 }
 
 #' Simple table specific reference function for the DRGCODES table data
@@ -206,7 +205,7 @@ db_get_diagnoses_icd <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_drgcodes <- function(con, ...) {
-    db_get_from_table(con, "drgcodes", ...)
+  db_get_from_table(con, "drgcodes", ...)
 }
 
 #' Simple table specific reference function for the D_CPT table data
@@ -231,7 +230,7 @@ db_get_drgcodes <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_d_cpt <- function(con, ...) {
-    db_get_from_table(con, "d_cpt", ...)
+  db_get_from_table(con, "d_cpt", ...)
 }
 
 #' Simple table specific reference function for the D_ICD_DIAGNOSES table data
@@ -256,7 +255,7 @@ db_get_d_cpt <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_d_icd_diagnoses <- function(con, ...) {
-    db_get_from_table(con, "d_icd_diagnoses", ...)
+  db_get_from_table(con, "d_icd_diagnoses", ...)
 }
 
 #' Simple table specific reference function for the D_ICD_PROCEDURES table data
@@ -281,7 +280,7 @@ db_get_d_icd_diagnoses <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_d_icd_procedures <- function(con, ...) {
-    db_get_from_table(con, "d_icd_procedures", ...)
+  db_get_from_table(con, "d_icd_procedures", ...)
 }
 
 #' Simple table specific reference function for the D_ITEMS table data
@@ -306,7 +305,7 @@ db_get_d_icd_procedures <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_d_items <- function(con, ...) {
-    db_get_from_table(con, "d_items", ...)
+  db_get_from_table(con, "d_items", ...)
 }
 
 #' Simple table specific reference function for the D_LABITEMS table data
@@ -331,7 +330,7 @@ db_get_d_items <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_d_labitems <- function(con, ...) {
-    db_get_from_table(con, "d_labitems", ...)
+  db_get_from_table(con, "d_labitems", ...)
 }
 
 #' Simple table specific reference function for the ICUSTAYS table data
@@ -356,7 +355,7 @@ db_get_d_labitems <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_icustays <- function(con, ...) {
-    db_get_from_table(con, "icustays", ...)
+  db_get_from_table(con, "icustays", ...)
 }
 
 #' Simple table specific reference function for the INPUTEVENTS_CV table data
@@ -381,7 +380,7 @@ db_get_icustays <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_inputevents_cv <- function(con, ...) {
-    db_get_from_table(con, "inputevents_cv", ...)
+  db_get_from_table(con, "inputevents_cv", ...)
 }
 
 #' Simple table specific reference function for the INPUTEVENTS_MV table data
@@ -406,7 +405,7 @@ db_get_inputevents_cv <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_inputevents_mv <- function(con, ...) {
-    db_get_from_table(con, "inputevents_mv", ...)
+  db_get_from_table(con, "inputevents_mv", ...)
 }
 
 #' Simple table specific reference function for the LABEVENTS table data
@@ -431,7 +430,7 @@ db_get_inputevents_mv <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_labevents <- function(con, ...) {
-    db_get_from_table(con, "labevents", ...)
+  db_get_from_table(con, "labevents", ...)
 }
 
 #' Simple table specific reference function for the MICROBIOLOGYEVENTS table data
@@ -456,7 +455,7 @@ db_get_labevents <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_microbiologyevents <- function(con, ...) {
-    db_get_from_table(con, "microbiologyevents", ...)
+  db_get_from_table(con, "microbiologyevents", ...)
 }
 
 #' Simple table specific reference function for the NOTEEVENTS table data
@@ -481,7 +480,7 @@ db_get_microbiologyevents <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_noteevents <- function(con, ...) {
-    db_get_from_table(con, "noteevents", ...)
+  db_get_from_table(con, "noteevents", ...)
 }
 
 #' Simple table specific reference function for the OUTPUTEVENTS table data
@@ -506,7 +505,7 @@ db_get_noteevents <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_outputevents <- function(con, ...) {
-    db_get_from_table(con, "outputevents", ...)
+  db_get_from_table(con, "outputevents", ...)
 }
 
 #' Simple table specific reference function for the PATIENTS table data
@@ -527,28 +526,30 @@ db_get_outputevents <- function(con, ...) {
 #'
 #' @examples
 #' con <- RSQLite::dbConnect(RSQLite::SQLite(), ":memory:")
-#' ex <- tibble::tibble(SUBJECT_ID = c(10006, 10011),
-#'                      DOB = c("2020-10-10", "2020-10-10"),
-#'                      DOD = c("2020-10-10", "2020-10-10"),
-#'                      DOD_HOSP = c("2020-10-10", "2020-10-10"),
-#'                      DOD_SSN = c("2020-10-10", "2020-10-10"))
+#' ex <- tibble::tibble(
+#'   SUBJECT_ID = c(10006, 10011),
+#'   DOB = c("2020-10-10", "2020-10-10"),
+#'   DOD = c("2020-10-10", "2020-10-10"),
+#'   DOD_HOSP = c("2020-10-10", "2020-10-10"),
+#'   DOD_SSN = c("2020-10-10", "2020-10-10")
+#' )
 #' RSQLite::dbWriteTable(con, "PATIENTS", ex)
 #'
 #' td <- db_get_patients(con, where = "WHERE SUBJECT_ID = 10006")
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_patients <- function(con, ...) {
-    db_get_from_table(con, "patients", ...)  %>%
-        dplyr::mutate(
-            DOB = ifelse(stringr::str_length(DOB) == 10, stringr::str_c(DOB," 00:00:00"), DOB),
-            DOB = lubridate::ymd_hms(DOB),
-            DOD = ifelse(stringr::str_length(DOD) == 10, stringr::str_c(DOD," 00:00:00"), DOD),
-            DOD = lubridate::ymd_hms(DOD),
-            DOD_HOSP = ifelse(stringr::str_length(DOD_HOSP) == 10, stringr::str_c(DOD_HOSP," 00:00:00"), DOD_HOSP),
-            DOD_HOSP = lubridate::ymd_hms(DOD_HOSP),
-            DOD_SSN = ifelse(stringr::str_length(DOD_SSN) == 10, stringr::str_c(DOD_SSN," 00:00:00"), DOD_SSN),
-            DOD_SSN = lubridate::ymd_hms(DOD_SSN)
-        ) # DOB and DOD... columns in PATIENTS are DATEs
+  db_get_from_table(con, "patients", ...) %>%
+    dplyr::mutate(
+      DOB = ifelse(stringr::str_length(DOB) == 10, stringr::str_c(DOB, " 00:00:00"), DOB),
+      DOB = lubridate::ymd_hms(DOB),
+      DOD = ifelse(stringr::str_length(DOD) == 10, stringr::str_c(DOD, " 00:00:00"), DOD),
+      DOD = lubridate::ymd_hms(DOD),
+      DOD_HOSP = ifelse(stringr::str_length(DOD_HOSP) == 10, stringr::str_c(DOD_HOSP, " 00:00:00"), DOD_HOSP),
+      DOD_HOSP = lubridate::ymd_hms(DOD_HOSP),
+      DOD_SSN = ifelse(stringr::str_length(DOD_SSN) == 10, stringr::str_c(DOD_SSN, " 00:00:00"), DOD_SSN),
+      DOD_SSN = lubridate::ymd_hms(DOD_SSN)
+    ) # DOB and DOD... columns in PATIENTS are DATEs
 }
 
 #' Simple table specific reference function for the PRESCRIPTIONS table data
@@ -573,7 +574,7 @@ db_get_patients <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_prescriptions <- function(con, ...) {
-    db_get_from_table(con, "prescriptions", ...)
+  db_get_from_table(con, "prescriptions", ...)
 }
 
 #' Simple table specific reference function for the PROCEDUREEVENTS_MV table data
@@ -598,7 +599,7 @@ db_get_prescriptions <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_procedureevents_mv <- function(con, ...) {
-    db_get_from_table(con, "procedureevents_mv", ...)
+  db_get_from_table(con, "procedureevents_mv", ...)
 }
 
 #' Simple table specific reference function for the PROCEDURES_ICD table data
@@ -623,7 +624,7 @@ db_get_procedureevents_mv <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_procedures_icd <- function(con, ...) {
-    db_get_from_table(con, "procedures_icd", ...)
+  db_get_from_table(con, "procedures_icd", ...)
 }
 
 #' Simple table specific reference function for the SERVICES table data
@@ -648,7 +649,7 @@ db_get_procedures_icd <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_services <- function(con, ...) {
-    db_get_from_table(con, "services", ...)
+  db_get_from_table(con, "services", ...)
 }
 
 #' Simple table specific reference function for the TRANSFERS table data
@@ -673,5 +674,5 @@ db_get_services <- function(con, ...) {
 #'
 #' RSQLite::dbDisconnect(con)
 db_get_transfers <- function(con, ...) {
-    db_get_from_table(con, "transfers", ...)
+  db_get_from_table(con, "transfers", ...)
 }
