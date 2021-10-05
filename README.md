@@ -4,6 +4,8 @@
 # MIMIC3db
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/hdshea/MIMIC3db/workflows/R-CMD-check/badge.svg)](https://github.com/hdshea/MIMIC3db/actions)
 <!-- badges: end -->
 
 This work references data from the Medical Information Mart for
